@@ -1,0 +1,102 @@
+{% extends 'admins/adminbase.html' %}
+{% load static %}
+{% block contents %}
+
+<div class="container-fluid fade-in">
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h4 class="text-dark fw-bold m-0">User Registry</h4>
+            <p class="text-muted small m-0">Manage system access and roles</p>
+        </div>
+        <span class="badge bg-white text-dark shadow-sm border px-3 py-2 rounded-pill">
+            <i class="fas fa-users me-2 text-primary"></i> {{data|length}} Total Users
+        </span>
+    </div>
+
+    <!-- Pro Table Card -->
+    <div class="glass-panel p-0 overflow-hidden shadow-sm">
+        <div class="table-responsive">
+            <table class="table-pro">
+                <thead>
+                    <tr>
+                        <th width="5%">#</th>
+                        <th width="25%">Identity</th>
+                        <th width="25%">Contact</th>
+                        <th width="15%">Region</th>
+                        <th width="10%">Status</th>
+                        <th width="20%" class="text-end pe-4">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in data %}
+                    <tr>
+                        <td class="text-muted ps-4">{{forloop.counter}}</td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="bg-gradient rounded-circle d-flex align-items-center justify-content-center me-3 text-white shadow-sm"
+                                    style="width: 40px; height: 40px; background: linear-gradient(135deg, #6366f1, #8b5cf6); font-weight: bold;">
+                                    {{i.name|slice:":1"|upper}}
+                                </div>
+                                <div>
+                                    <div class="text-dark fw-bold">{{i.name}}</div>
+                                    <div class="small text-muted">ID: {{i.loginid}}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="text-dark small fw-bold">{{i.email}}</div>
+                            <div class="small text-muted">{{i.mobile}}</div>
+                        </td>
+                        <td>
+                            <span class="badge bg-light text-muted border rounded-pill px-2">
+                                <i class="fas fa-map-marker-alt me-1 text-danger"></i> {{i.locality}}
+                            </span>
+                        </td>
+                        <td>
+                            {% if i.status == 'waiting' %}
+                            <span
+                                class="badge bg-warning bg-opacity-10 text-warning border border-warning border-opacity-10 rounded-pill px-3 py-2">
+                                <i class="fas fa-clock me-1"></i> Pending
+                            </span>
+                            {% else %}
+                            <span
+                                class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-10 rounded-pill px-3 py-2">
+                                <i class="fas fa-check-circle me-1"></i> Active
+                            </span>
+                            {% endif %}
+                        </td>
+                        <td class="text-end pe-4">
+                            {% if i.status == 'waiting' %}
+                            <a href="{% url 'activate_users' %}?uid={{ i.id }}"
+                                class="btn btn-sm btn-primary rounded-pill px-3 shadow-sm hover-lift">
+                                Approved
+                            </a>
+                            {% else %}
+                            <div class="dropdown d-inline-block">
+                                <a href="{% url 'delete_users' %}?uid={{ i.id }}"
+                                    class="btn btn-sm btn-outline-danger rounded-pill px-3 hover-lift border-0 bg-danger bg-opacity-10">
+                                    <i class="fas fa-trash-alt me-1"></i> Remove
+                                </a>
+                            </div>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center py-5">
+                            <div class="py-5 opacity-50">
+                                <i class="fas fa-folder-open fs-1 text-muted mb-3"></i>
+                                <h6 class="text-muted">No users found in the registry.</h6>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

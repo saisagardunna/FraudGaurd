@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contents %}
+
+<div class="auth-container">
+    <div class="glass-panel p-5" style="max-width: 450px; width: 100%; border-color: rgba(139, 92, 246, 0.3);">
+        <div class="text-center mb-5">
+            <div class="bg-secondary bg-opacity-10 d-inline-flex align-items-center justify-content-center rounded-circle mb-3"
+                style="width: 60px; height: 60px;">
+                <i class="fas fa-lock text-secondary fs-3"></i>
+            </div>
+            <h3 class="fw-bold text-white">Admin Console</h3>
+            <p class="text-muted small">Restricted access.</p>
+        </div>
+
+        <form action="{% url 'AdminLoginCheck' %}" method="POST">
+            {% csrf_token %}
+
+            <div class="mb-4">
+                <label class="input-label">Admin ID</label>
+                <input type="text" id="loginid" name="loginid" class="input-modern" required>
+            </div>
+
+            <div class="mb-4">
+                <label class="input-label">Security Key</label>
+                <input type="password" id="password" name="pswd" class="input-modern" required>
+            </div>
+
+            <button type="submit" class="btn-modern w-100 mb-4"
+                style="background: linear-gradient(135deg, var(--secondary), #4f46e5);">
+                Authenticate
+            </button>
+
+            <button type="reset" class="btn btn-sm text-muted w-100 text-center"
+                style="background: none; border: none;">
+                Clear
+            </button>
+        </form>
+
+        {% if messages %}
+        <div class="mt-4">
+            {% for message in messages %}
+            <div class="alert alert-danger bg-transparent border-danger text-danger text-center small p-2" role="alert">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{%endblock%}

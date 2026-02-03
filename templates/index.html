@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contents %}
+
+
+
+<div class="hero-wrapper position-relative">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <span
+                    class="badge rounded-pill bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 px-3 py-2 mb-4 fade-in">
+                    <i class="fas fa-check-circle me-2"></i> Hybrid Deep Learning Architecture
+                </span>
+
+                <h1 class="hero-title fade-in" style="animation-delay: 0.1s;">
+                    Next-Gen Payment Security
+                </h1>
+
+                <p class="lead text-muted fade-in mb-5 mx-auto"
+                    style="animation-delay: 0.2s; max-width: 700px; font-weight: 600;">
+                    Protecting financial ecosystems with Graph Neural Networks and Real-Time Autoencoders. Experience
+                    instant fraud detection.
+                </p>
+
+                <div class="d-flex gap-3 justify-content-center fade-in" style="animation-delay: 0.3s;">
+                    <a href="{% url 'UserRegisterForm' %}" class="btn-modern">
+                        Create Account
+                    </a>
+                    <a href="{% url 'UserLogin' %}" class="btn-outline-modern bg-white">
+                        User Login
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container pb-5 position-relative">
+    <div class="row g-4">
+        <!-- Feature 1 -->
+        <div class="col-md-4">
+            <div class="card-3d h-100 bg-white">
+                <div class="mb-4">
+                    <i class="fas fa-project-diagram text-primary fs-1"></i>
+                </div>
+                <h4 class="fw-bold mb-3 text-dark">Graph Neural Networks</h4>
+                <p class="text-muted small">
+                    Analyzes complex relationship matrices between transactions to identify hidden fraud rings that
+                    standard linear models miss.
+                </p>
+            </div>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="col-md-4">
+            <div class="card-3d h-100 bg-white">
+                <div class="mb-4">
+                    <i class="fas fa-bolt text-warning fs-1"></i>
+                </div>
+                <h4 class="fw-bold mb-3 text-dark">Real-Time latency</h4>
+                <p class="text-muted small">
+                    Engineered for millisecond-level inference, ensuring legitimate transactions are approved instantly
+                    while threats are blocked.
+                </p>
+            </div>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="col-md-4">
+            <div class="card-3d h-100 bg-white">
+                <div class="mb-4">
+                    <i class="fas fa-layer-group text-danger fs-1"></i>
+                </div>
+                <h4 class="fw-bold mb-3 text-dark">Ensemble Defense</h4>
+                <p class="text-muted small">
+                    A weighted voting system combining XGBoost, Random Forest, and Deep Learning provides a
+                    multi-layered security shield.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contents %}
+
+<div class="auth-container">
+    <div class="glass-panel p-5" style="max-width: 450px; width: 100%;">
+        <div class="text-center mb-5">
+            <div class="bg-primary bg-opacity-10 d-inline-flex align-items-center justify-content-center rounded-circle mb-3"
+                style="width: 60px; height: 60px;">
+                <i class="fas fa-user text-primary fs-3"></i>
+            </div>
+            <h3 class="fw-bold text-white">Welcome Back</h3>
+            <p class="text-muted small">Access your secure fraud analysis dashboard.</p>
+        </div>
+
+        <form action="{% url 'UserLoginCheck' %}" method="POST" class="needs-validation" novalidate>
+            {% csrf_token %}
+
+            <div class="mb-4">
+                <label class="input-label">Login ID</label>
+                <input type="text" class="input-modern" id="loginid" name="loginid" required
+                    placeholder="Enter your ID">
+            </div>
+
+            <div class="mb-4">
+                <label class="input-label">Password</label>
+                <input type="password" class="input-modern" id="pswd" name="pswd" required placeholder="••••••••">
+            </div>
+
+            <button class="btn-modern w-100 mb-4" type="submit">
+                Sign In
+            </button>
+
+            <div class="d-flex justify-content-between align-items-center">
+                <button class="btn btn-sm text-muted" type="reset" style="background: none; border: none;">
+                    Reset
+                </button>
+                <a href="{% url 'UserRegisterForm' %}" class="text-primary text-decoration-none small fw-bold">
+                    Create Account
+                </a>
+            </div>
+
+            {% if messages %}
+            <div class="mt-4">
+                {% for message in messages %}
+                <div class="alert alert-info bg-transparent border-info text-info text-center small p-2" role="alert">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </form>
+    </div>
+</div>
+
+{% endblock %}

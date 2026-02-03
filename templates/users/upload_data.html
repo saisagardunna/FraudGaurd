@@ -1,0 +1,71 @@
+{% extends 'users/userbase.html' %}
+{% load static %}
+{% block contents %}
+
+<div class="row justify-content-center fade-in">
+    <div class="col-lg-8">
+        <div class="glass-panel p-5">
+
+            <div class="text-center mb-5">
+                <div class="bg-primary bg-opacity-10 d-inline-flex align-items-center justify-content-center rounded-circle mb-3"
+                    style="width: 70px; height: 70px;">
+                    <i class="fas fa-cloud-upload-alt text-primary fs-2"></i>
+                </div>
+                <h3 class="mw-bold text-white">Secure Dataset Upload</h3>
+                <p class="text-muted">Contribute anonymized transaction data for model refinement.</p>
+            </div>
+
+            {% if messages %}
+            <div class="mb-4">
+                {% for message in messages %}
+                <div class="alert alert-info bg-transparent border-info text-info p-3 text-center rounded-3">
+                    <i class="fas fa-info-circle me-2"></i> {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="mb-4">
+                    <label
+                        class="d-block text-center border-2 border-dashed border-secondary border-opacity-25 rounded-3 p-5 cursor-pointer input-modern h-auto"
+                        style="border-style: dashed !important; background: rgba(15, 23, 42, 0.4);">
+                        <i class="fas fa-file-csv fs-1 text-muted mb-3 d-block"></i>
+                        <span class="d-block fw-bold text-white mb-1">Click to select CSV File</span>
+                        <span class="d-block text-muted small">or drag and drop here</span>
+                        <input type="file" name="data_file" class="d-none"
+                            onchange="this.previousElementSibling.previousElementSibling.textContent = this.files[0].name; this.previousElementSibling.textContent = 'File Selected';">
+                    </label>
+                </div>
+
+                <div class="mb-4">
+                    <label class="input-label">Contributor ID</label>
+                    <input type="text" class="input-modern" name="user_id"
+                        value="{{ request.user.loginid|default:'System_User' }}" readonly>
+                </div>
+
+                <button type="submit" class="btn-modern w-100 py-3 fs-6">
+                    <i class="fas fa-upload me-2"></i> Upload & Process
+                </button>
+            </form>
+
+            <div class="mt-5 pt-4 border-top border-secondary border-opacity-10">
+                <h6 class="text-white fw-bold mb-3"><i class="fas fa-shield-alt text-success me-2"></i>Data Privacy
+                    Standards</h6>
+                <ul class="list-unstyled text-muted small spacing-y-2">
+                    <li class="mb-2"><i class="fas fa-check text-primary me-2"></i> Data is encrypted at rest using
+                        AES-256.</li>
+                    <li class="mb-2"><i class="fas fa-check text-primary me-2"></i> PII is automatically redacted upon
+                        ingestion.</li>
+                    <li><i class="fas fa-check text-primary me-2"></i> Only CSV formats adhering to the financial schema
+                        are accepted.</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
