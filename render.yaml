@@ -1,20 +1,13 @@
 
 services:
   - type: web
-    name: fraud-detection-web
-    env: python
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "gunicorn credit_card.wsgi:application --bind 0.0.0.0:$PORT"
+    name: fraud-guard-bot
+    env: docker
+    plan: free
     envVars:
       - key: DEBUG
         value: "False"
       - key: ALLOWED_HOSTS
         value: "*"
-      # For SQLite to persist (only works efficiently with strict constraints on Render, disk can be added)
-      # Better to use a managed Postgres DB
-      
-  - type: worker
-    name: telegram-bot-worker
-    env: python
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "python manage.py run_telegram_bot"
+      - key: SECRET_KEY
+        generateValue: true

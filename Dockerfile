@@ -36,4 +36,9 @@ EXPOSE 7860
 
 # Default command (overridden by Render/Docker Compose)
 # Start both the web server and the telegram bot
-CMD gunicorn credit_card.wsgi:application --bind 0.0.0.0:7860 & python manage.py run_telegram_bot
+# Copy and make the start script executable
+COPY start.sh /app/
+RUN chmod +x /app/start.sh
+
+# Start using the script
+CMD ["/app/start.sh"]
